@@ -11,6 +11,25 @@ namespace HW4
             b = temp;
         }
 
+        static void ReturnSaveArrey(int[] array, int[] arraysave)
+        {
+            int i;
+            for (i = 0; i < array.Length; i++)
+            {
+                array[i] = arraysave[i];
+            }
+        }
+
+        static void WriteArray(int[] array)
+        {
+            int i;
+            for (i = 0; i < array.Length; i++)
+            {
+                Console.Write(array[i] + " ");
+            }
+            Console.WriteLine("  ");
+        }
+
         static int GetMinNumber(int[] array)
         {
             int min = array[0];
@@ -48,7 +67,7 @@ namespace HW4
             {
                 if (min == array[i])
                 {
-                   minIndex+= i;
+                   minIndex+=" "+ i;
                 }
             }
 
@@ -64,14 +83,14 @@ namespace HW4
             {
                 if (max == array[i])
                 {
-                    maxIndex += i;
+                    maxIndex += " " + i;
                 }
             }
 
             return maxIndex;
         }
 
-        static int GetOddSum(int[] array)//??
+        static int GetOddSum(int[] array)
         {
             int oddsum = 0;
 
@@ -88,9 +107,9 @@ namespace HW4
 
         static void ReverseArray(int[] array)
         {
-            for (int i = 0; i < array.Length - 1; i++)
+            for (int i = 0; i < array.Length/2; i++)
             {
-                Swap(ref array[i], ref array[array.Length - 1 - i]);
+                Swap(ref array[i], ref array[array.Length-1 - i]);
             }
         }
 
@@ -113,7 +132,7 @@ namespace HW4
         {
             for (int i = 0; i < array.Length/2; i++)
             {
-                Swap(ref array[i], ref array[array.Length - 1 - i]);
+                Swap(ref array[i], ref array[array.Length/2+i]);
             }
         }
 
@@ -130,7 +149,6 @@ namespace HW4
                 }
             }
         }
-
 
         static void SortingInsertion(int[] array)
         {
@@ -152,15 +170,20 @@ namespace HW4
         static void Main(string[] args)
         {
             int[] array = new int[10];
+            int[] arraysave = new int[10];
             Random random = new Random();
             int i = 0;
 
             for ( i = 0; i < array.Length; i++)
             {
                 array[i] = random.Next(1, 10);
-                Console.WriteLine(i+ "-"+ array[i]);
+                arraysave[i] = array[i];
             }
-            Console.WriteLine("  ");
+            for (i = 0; i < array.Length; i++)
+            {
+                Console.WriteLine(i + " - " + array[i]);
+            }
+            Console.WriteLine(" ");
 
             int min = GetMinNumber(array);
             string minIndex = GetMinNumberIndex(array);
@@ -168,7 +191,7 @@ namespace HW4
             string maxIndex = GetMaxNumberIndex(array);
             int oddsum = GetOddSum(array);
             int AmountOddNumbers = GetAmountOddNumbers(array);
-            Console.WriteLine("  ");
+
             Console.WriteLine("Min"+"  "+min);
             Console.WriteLine("Max" + "  " + max);
             Console.WriteLine("MinIndex" + "  " + minIndex);
@@ -176,18 +199,32 @@ namespace HW4
             Console.WriteLine("OddSum" + "  " + oddsum);
             Console.WriteLine("AmountOddNumbers" + "  " + AmountOddNumbers);
             Console.WriteLine("  ");
-            for (i = 0; i < array.Length; i++)
-            {
-                Console.WriteLine(i + "-" + array[i]);
-            }
-            Console.WriteLine("  ");
-            SortingBubble(array);
-            Console.WriteLine("Sorting");
-            for (i = 0; i < array.Length; i++)
-            {
-                Console.WriteLine(i + "-" + array[i]);
-            }
 
+            Console.WriteLine("Reverse Array");
+            WriteArray(array);
+            ReverseArray(array);
+            WriteArray(array);
+            ReturnSaveArrey(array, arraysave);
+            Console.WriteLine("  ");
+
+            Console.WriteLine("SwapHalfArray");
+            WriteArray(array);
+            SwapHalfArray(array);
+            WriteArray(array);
+            ReturnSaveArrey(array, arraysave);
+            Console.WriteLine("  ");
+
+            Console.WriteLine("SortingBubble");
+            WriteArray(array);
+            SortingBubble(array);
+            WriteArray(array);
+            ReturnSaveArrey(array, arraysave);
+            Console.WriteLine("  ");
+
+            Console.WriteLine("SortingInsertion");
+            WriteArray(array);
+            SortingInsertion(array);
+            WriteArray(array);
         }
     }
 }
